@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    tools:context=".MainActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <ImageButton
+                android:id="@+id/imagen"
+                android:layout_margin="16dp"
+                android:layout_width="500dp"
+                android:layout_height="500dp"
+                android:scaleType="centerInside"
+                android:contentDescription="feliz"
+                android:src="@drawable/img"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:clickable="true"
+                />
+
+            <!-- Texto debajo del ImageButton -->
+            <Button
+                android:id="@+id/btnImagen"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:text="🎤 Speak"
+                android:background="@drawable/button_rounded"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"
+                android:textSize="30sp"
+                android:clickable="true"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>
