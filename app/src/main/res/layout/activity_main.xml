@@ -34,7 +34,7 @@
                     android:layout_width="500dp"
                     android:layout_height="500dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/img"
+                    android:src="@drawable/banana"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="16dp"/>
 

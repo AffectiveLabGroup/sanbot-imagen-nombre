@@ -188,7 +188,7 @@ public class MainActivity extends TopBaseActivity {
                         // Cambiar imagen
                         indiceActual++;
                         if (indiceActual >= palabras.size()) {
-                            //indiceActual = 0;
+                            indiceActual = 0;
                             finJuego();
                             return;
                         }
@@ -290,7 +290,7 @@ public class MainActivity extends TopBaseActivity {
             indiceActual++;
 
             if (indiceActual >= palabras.size()) {
-                //indiceActual = 0;
+                indiceActual = 0;
                 finJuego();
                 return;
             }
@@ -327,18 +327,25 @@ public class MainActivity extends TopBaseActivity {
                 new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_BOTH,20,0);
         handMotionManager.doAbsoluteAngleMotion(motion);
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            runOnUiThread(() -> {
-                finish();
-            });
+        motion =
+                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_BOTH,20,180);
+        handMotionManager.doAbsoluteAngleMotion(motion);
 
-        }).start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
+
+
     }
 
 

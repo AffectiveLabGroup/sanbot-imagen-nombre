@@ -26,7 +26,7 @@
         <meta-data android:name="RECOGNIZE_MODE" android:value="1"/>
         <activity
             android:name=".MainActivity"
-            android:label="Emociones"
+            android:label="Say my name!"
             android:theme="@style/AppTheme">
 
             <intent-filter>
