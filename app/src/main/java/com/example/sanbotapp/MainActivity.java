@@ -46,6 +46,7 @@ import com.qihancloud.opensdk.function.unit.SpeechManager;
 import com.qihancloud.opensdk.function.unit.SystemManager;
 import com.qihancloud.opensdk.function.unit.WheelMotionManager;
 import com.qihancloud.opensdk.function.unit.interfaces.speech.RecognizeListener;
+import com.qihancloud.opensdk.function.unit.interfaces.speech.SpeechListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +69,7 @@ public class MainActivity extends TopBaseActivity {
 
     public Boolean reconocimientoFacial = false;
     private Button btnImagen;
+    Button btnSkip;
 
     private ImageButton imagen;
 
@@ -81,7 +83,8 @@ public class MainActivity extends TopBaseActivity {
     private HardWareManager hardwareManager;
     private SpeechControl speechControl;
 
-    List<String> palabras = Arrays.asList("banana", "apple", "dog");
+    List<String> palabras = Arrays.asList("banana", "apple", "watermelon", "orange",  "strawberry", "cherries", "horse", "rabbit",
+            "hamburger", "pizza", "rice", "shoes");
     int indiceActual = 0;
 
 
@@ -114,15 +117,18 @@ public class MainActivity extends TopBaseActivity {
         btnImagen = findViewById(R.id.btnImagen);
 
         imagen = findViewById(R.id.imagen);
+        btnSkip = findViewById(R.id.btnSkip);
 
         faceRecognitionControl.stopFaceRecognition();
 
         setonClicks();
 
         SpeakOption speakOption = new SpeakOption();
-        speakOption.setSpeed(50);
+        speakOption.setSpeed(40);
         speakOption.setIntonation(50);
-        speakOption.setLanguageType(LAG_ENGLISH_US);
+
+
+
 
         speechManager.setOnSpeechListener(new RecognizeListener() {
 
@@ -135,7 +141,40 @@ public class MainActivity extends TopBaseActivity {
 
                 runOnUiThread(() -> {
                     if (correcto) {
+
                         speechManager.startSpeak("Great!", speakOption);
+
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        systemManager.showEmotion(EmotionsType.PRISE);
+                        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_GREEN));
+
+                        AbsoluteAngleHandMotion absoluteAngleHandMotion =
+                                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_BOTH,20,0);
+                        handMotionManager.doAbsoluteAngleMotion(absoluteAngleHandMotion);
+
+                        String[] frases = {
+                                "Wow! That was amazing!",
+                                "Nice! You're doing great! ",
+                                "Yay! You got it!"
+                        };
+                        Random rand = new Random();
+                        int randomIndex = rand.nextInt(frases.length);
+                        speechManager.startSpeak(frases[randomIndex], speakOption);
+
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        absoluteAngleHandMotion =
+                                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_BOTH,20,180);
+                        handMotionManager.doAbsoluteAngleMotion(absoluteAngleHandMotion);
 
                         try {
                             Thread.sleep(1000);
@@ -143,10 +182,15 @@ public class MainActivity extends TopBaseActivity {
                             e.printStackTrace();
                         }
 
+                        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
+
+
                         // Cambiar imagen
                         indiceActual++;
                         if (indiceActual >= palabras.size()) {
-                            indiceActual = 0;
+                            //indiceActual = 0;
+                            finJuego();
+                            return;
                         }
 
                         actualizarImagen();
@@ -157,6 +201,60 @@ public class MainActivity extends TopBaseActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        systemManager.showEmotion(EmotionsType.QUESTION);
+                        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_YELLOW));
+
+                        AbsoluteAngleHandMotion absoluteAngleHandMotion =
+                                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_RIGHT,20,0);
+                        handMotionManager.doAbsoluteAngleMotion(absoluteAngleHandMotion);
+
+
+                        String[] frases = {"Hey! Want a hint?", "Here comes a clue!",
+                                "Let's help you!"};
+                        Random rand = new Random();
+                        int randomIndex = rand.nextInt(frases.length);
+                        speechManager.startSpeak(frases[randomIndex], speakOption);
+
+                        AbsoluteAngleHeadMotion absoluteAngleHeadMotion =
+                                new AbsoluteAngleHeadMotion(AbsoluteAngleHeadMotion.ACTION_VERTICAL,7);
+                        headMotionManager.doAbsoluteAngleMotion(absoluteAngleHeadMotion);
+
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        speechManager.startSpeak("Repeat after me", speakOption);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        speechManager.startSpeak(palabras.get(indiceActual), speakOption);
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                        absoluteAngleHandMotion =
+                                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_RIGHT,20,180);
+                        handMotionManager.doAbsoluteAngleMotion(absoluteAngleHandMotion);
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
+                        headMotionManager.doAbsoluteAngleMotion(new AbsoluteAngleHeadMotion(AbsoluteAngleHeadMotion.ACTION_VERTICAL,30));
+
                     }
 
 
@@ -169,16 +267,13 @@ public class MainActivity extends TopBaseActivity {
             public void onRecognizeVolume(int i) {
 
             }
+
         });
     }
 
 
     public void setonClicks() {
 
-        SpeakOption speakOption = new SpeakOption();
-        speakOption.setSpeed(50);
-        speakOption.setIntonation(50);
-        speakOption.setLanguageType(LAG_ENGLISH_US);
 
 
         btnImagen.setOnClickListener(v -> {
@@ -188,6 +283,19 @@ public class MainActivity extends TopBaseActivity {
                 speechManager.doWakeUp();
 
             }).start();
+        });
+
+        btnSkip.setOnClickListener(v -> {
+
+            indiceActual++;
+
+            if (indiceActual >= palabras.size()) {
+                //indiceActual = 0;
+                finJuego();
+                return;
+            }
+
+            actualizarImagen();
         });
 
     }
@@ -204,20 +312,51 @@ public class MainActivity extends TopBaseActivity {
         imagen.setImageResource(resId);
     }
 
+    private void finJuego() {
+
+        SpeakOption speakOption = new SpeakOption();
+        speakOption.setSpeed(40);
+        speakOption.setIntonation(50);
+
+        speechManager.startSpeak("Amazing! You finished all the words!", speakOption);
+
+        systemManager.showEmotion(EmotionsType.SMILE);
+        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_BLUE));
+
+        AbsoluteAngleHandMotion motion =
+                new AbsoluteAngleHandMotion(AbsoluteAngleHandMotion.PART_BOTH,20,0);
+        handMotionManager.doAbsoluteAngleMotion(motion);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            runOnUiThread(() -> {
+                finish();
+            });
+
+        }).start();
+    }
+
 
 
     @Override
     public void onResume() {
+
         SpeakOption speakOption = new SpeakOption();
-        speakOption.setSpeed(50);
+        speakOption.setSpeed(40);
         speakOption.setIntonation(50);
+
 
         super.onResume();
         // Inicializamos el sistema
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                speechManager.startSpeak("Clica el botón y dí el nombre de la imagen en inglés", speakOption );
+                speechManager.startSpeak("Tap the button and say the word in English!", speakOption );
 
                 try {
                     Thread.sleep(3000);

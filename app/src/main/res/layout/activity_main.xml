@@ -9,50 +9,62 @@
     tools:context=".MainActivity">
 
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
+        <!-- TU LAYOUT ORIGINAL (NO CAMBIA) -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-            <ImageButton
-                android:id="@+id/imagen"
-                android:layout_margin="16dp"
-                android:layout_width="500dp"
-                android:layout_height="500dp"
-                android:scaleType="centerInside"
-                android:contentDescription="feliz"
-                android:src="@drawable/img"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="16dp"
-                android:clickable="true"
-                />
-
-            <!-- Texto debajo del ImageButton -->
-            <Button
-                android:id="@+id/btnImagen"
-                android:layout_width="500dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🎤 Speak"
-                android:background="@drawable/button_rounded"
-                android:textColor="@color/colorWhite"
-                android:textAllCaps="false"
-                android:textSize="30sp"
-                android:clickable="true"
-                android:gravity="center"/>
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <ImageButton
+                    android:id="@+id/imagen"
+                    android:layout_margin="16dp"
+                    android:layout_width="500dp"
+                    android:layout_height="500dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/img"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="16dp"/>
+
+                <Button
+                    android:id="@+id/btnImagen"
+                    android:layout_width="500dp"
+                    android:layout_height="wrap_content"
+                    android:text="🎤 Speak"
+                    android:background="@drawable/button_rounded"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <!-- BOTÓN SKIP FLOTANTE -->
+        <Button
+            android:id="@+id/btnSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="skip ⏭"
+            android:textSize="18sp"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_rounded"/>
+
+    </FrameLayout>
+
 
 
 

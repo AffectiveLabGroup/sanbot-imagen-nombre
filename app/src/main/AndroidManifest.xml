@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data android:name="FORBID_WAKE_RESPONSE" android:value="true"/>
-        <!-- <meta-data android:name="RECOGNIZE_MODE" android:value="1"/> -->
+        <meta-data android:name="RECOGNIZE_MODE" android:value="1"/>
         <activity
             android:name=".MainActivity"
             android:label="Emociones"
