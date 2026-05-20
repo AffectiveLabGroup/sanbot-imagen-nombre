@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:elevation="0dp"
+    android:stateListAnimator="@null">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white">
+
+        <!-- Botón atrás -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/arrow_button"
+            android:padding="8dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:contentDescription="Volver"/>
+
+        <!-- Imagen derecha -->
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="22dp"
+            android:src="@drawable/logo"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!-- Línea azul -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorPurple"/>
+
+</android.support.design.widget.AppBarLayout>

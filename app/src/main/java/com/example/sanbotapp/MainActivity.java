@@ -86,6 +86,7 @@ public class MainActivity extends TopBaseActivity {
     List<String> palabras = Arrays.asList("banana", "apple", "watermelon", "orange",  "strawberry", "cherries", "horse", "rabbit",
             "hamburger", "pizza", "rice", "shoes");
     int indiceActual = 0;
+    private Boolean dejarDeJugar;
 
 
     @Override
@@ -101,7 +102,7 @@ public class MainActivity extends TopBaseActivity {
         super.onCreate(savedInstanceState);
         onMainServiceConnected();
         setContentView(R.layout.activity_main);
-
+        dejarDeJugar = false;
         speechManager = (SpeechManager) getUnitManager(FuncConstant.SPEECH_MANAGER);
         mediaManager = (MediaManager) getUnitManager(FuncConstant.MEDIA_MANAGER);
         systemManager = (SystemManager) getUnitManager(FuncConstant.SYSTEM_MANAGER);
@@ -142,7 +143,7 @@ public class MainActivity extends TopBaseActivity {
                 runOnUiThread(() -> {
                     if (correcto) {
 
-                        speechManager.startSpeak("Great!", speakOption);
+                        /*speechManager.startSpeak("Great!", speakOption);
 
                         try {
                             Thread.sleep(2000);
@@ -193,7 +194,13 @@ public class MainActivity extends TopBaseActivity {
                             return;
                         }
 
-                        actualizarImagen();
+                        actualizarImagen();*/
+                        speechManager.startSpeak("Great!", speakOption);
+
+                        systemManager.showEmotion(EmotionsType.PRISE);
+                        hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_GREEN));
+
+                        mostrarDialogoAcierto();
                     } else {
                         speechManager.startSpeak("Try again!", speakOption);
                         try {
@@ -271,7 +278,44 @@ public class MainActivity extends TopBaseActivity {
         });
     }
 
+    private void mostrarDialogoAcierto() {
 
+        View view = getLayoutInflater().inflate(R.layout.feedbackasociacion, null);
+
+        Button btnYes = view.findViewById(R.id.btnAccept);
+        Button btnNo = view.findViewById(R.id.btnCancel);
+
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create();
+
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            siguientePalabra();
+        });
+
+        btnNo.setOnClickListener(v -> {
+            dialog.dismiss();
+            dejarDeJugar = true;
+            finJuego();
+            finish();
+        });
+
+        dialog.show();
+    }
+
+    private void siguientePalabra() {
+        indiceActual++;
+
+        if (indiceActual >= palabras.size()) {
+            indiceActual = 0;
+            finJuego();
+            return;
+        }
+
+        actualizarImagen();
+    }
     public void setonClicks() {
 
 
@@ -318,7 +362,14 @@ public class MainActivity extends TopBaseActivity {
         speakOption.setSpeed(40);
         speakOption.setIntonation(50);
 
-        speechManager.startSpeak("Amazing! You finished all the words!", speakOption);
+        if(dejarDeJugar){
+            speechManager.startSpeak("Fine! Let's continue playing later!", speakOption);
+
+        }
+        else{
+            speechManager.startSpeak("Amazing! You finished all the words!", speakOption);
+
+        }
 
         systemManager.showEmotion(EmotionsType.SMILE);
         hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_BLUE));

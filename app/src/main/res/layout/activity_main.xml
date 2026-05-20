@@ -1,19 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TU LAYOUT ORIGINAL (NO CAMBIA) -->
+        <!-- ⭐ TÍTULO CENTRADO -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WHAT'S THIS?"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPurple"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="40dp"/>
+
+        <!-- ⭐ HELP ARRIBA DERECHA -->
+        <LinearLayout
+            android:id="@+id/helpContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp">
+
+            <ImageButton
+                android:id="@+id/btnHelp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/help"
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:contentDescription="Help"/>
+
+            <TextView
+                android:id="@+id/helpText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HELP"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/colorPurple"/>
+        </LinearLayout>
+
+        <!-- ⭐ TU CONTENIDO CENTRADO -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,14 +66,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="16dp">
 
                 <ImageButton
                     android:id="@+id/imagen"
-                    android:layout_margin="16dp"
                     android:layout_width="500dp"
                     android:layout_height="500dp"
                     android:scaleType="centerInside"
@@ -42,16 +83,14 @@
                     android:id="@+id/btnImagen"
                     android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:text="🎤 Speak"
+                    android:text="Tap to tell me what it is"
                     android:background="@drawable/button_rounded"
                     android:textColor="@color/colorWhite"
                     android:textSize="30sp"/>
-
             </LinearLayout>
-
         </LinearLayout>
 
-        <!-- BOTÓN SKIP FLOTANTE -->
+        <!-- ⭐ SKIP ARRIBA DERECHA (como ya lo tenías) -->
         <Button
             android:id="@+id/btnSkip"
             android:layout_width="wrap_content"
@@ -59,13 +98,11 @@
             android:text="skip ⏭"
             android:textSize="18sp"
             android:layout_gravity="top|end"
-            android:layout_margin="16dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/colorWhite"
             android:background="@drawable/button_rounded"/>
 
     </FrameLayout>
-
-
-
 
 </android.support.v7.widget.LinearLayoutCompat>

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 34
     defaultConfig {
-        applicationId "com.example.imagennombre"
+        applicationId "com.example.imagennombree"
         minSdkVersion 23
         targetSdkVersion 22
         versionCode 1

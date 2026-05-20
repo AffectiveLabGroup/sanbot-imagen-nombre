@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="32dp"
+    android:gravity="center"
+    android:background="#F0F0F0">
+
+    <TextView
+        android:id="@+id/feedbackTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="VERY GOOD!"
+        android:textColor="#4CAF50"
+        android:textSize="52sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/feedbackSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="The answer is:"
+        android:textColor="#8A8A8A"
+        android:textSize="28sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgRespuesta"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/apple"
+            android:contentDescription="Image"
+            android:padding="12dp"/>
+
+        <TextView
+            android:id="@+id/textoRespuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apple"
+            android:textSize="29sp"
+            android:textColor="#222222"
+            android:gravity="center"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/jugarDeNuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you want to play another round?"
+        android:textSize="26sp"
+        android:layout_margin="20dp"
+        android:textColor="#8A8A8A"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:text="No"
+            android:layout_width="140dp"
+            android:layout_height="52dp"
+            android:background="#F8B4B4"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:text="Yes"
+            android:layout_marginStart="12dp"
+            android:layout_width="140dp"
+            android:layout_height="52dp"
+            android:background="#BFE6C3"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</LinearLayout>
