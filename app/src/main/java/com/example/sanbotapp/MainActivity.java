@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +85,14 @@ public class MainActivity extends TopBaseActivity {
     private HardWareManager hardwareManager;
     private SpeechControl speechControl;
 
+    private Button sayitagain, skip;
+    private ImageButton btnBack;
+    private ImageButton btnHelp;
+    private TextView textoDialogo;
+    private TextView helpText;
+    private LinearLayout loadingBox;
+    private TextView title;
+
     List<String> palabras = Arrays.asList("banana", "apple", "watermelon", "orange",  "strawberry", "cherries", "horse", "rabbit",
             "hamburger", "pizza", "rice", "shoes");
     int indiceActual = 0;
@@ -119,6 +129,14 @@ public class MainActivity extends TopBaseActivity {
 
         imagen = findViewById(R.id.imagen);
         btnSkip = findViewById(R.id.btnSkip);
+        btnBack = findViewById(R.id.btnBack);
+        title = findViewById(R.id.title);
+        loadingBox = findViewById(R.id.loadingBox);
+        sayitagain = findViewById(R.id.sayitagain);
+        btnHelp = findViewById(R.id.btnHelp);
+        skip = findViewById(R.id.skip);
+        textoDialogo = findViewById(R.id.instruction);
+        helpText = findViewById(R.id.helpText);
 
         faceRecognitionControl.stopFaceRecognition();
 
@@ -342,6 +360,85 @@ public class MainActivity extends TopBaseActivity {
             actualizarImagen();
         });
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                textoDialogo.setText("¡Di lo que ves en la imagen!");
+                sayitagain.setVisibility(View.GONE);
+                btnHelp.setVisibility(View.GONE);
+                helpText.setVisibility(View.GONE);
+
+
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                SpeakOption speakOption = new SpeakOption();
+                speakOption.setSpeed(50);
+                speakOption.setIntonation(50);
+
+                /*// Ocultar diálogo azul
+                loadingBox.setVisibility(View.GONE);
+
+                // Mostrar imágenes
+                for (ImageButton img : imagenes) {
+                    img.setVisibility(View.VISIBLE);
+                }
+
+                // Mostrar título
+                titulo.setVisibility(View.VISIBLE);
+
+                // Iniciar juego
+                actualizarImagen();
+                actualizarTitulo();
+
+                // Desactivar botón skip después
+                skip.setClickable(false);*/
+                btnHelp.setVisibility(View.GONE);
+                helpText.setVisibility(View.GONE);
+                sayitagain.setVisibility(View.GONE);
+                skip.setVisibility(View.GONE);
+                title = findViewById(R.id.title);
+                imagen = findViewById(R.id.imagen);
+                btnImagen = findViewById(R.id.btnImagen);
+                btnSkip = findViewById(R.id.btnSkip);
+
+                // Hacer visibles
+                title.setVisibility(View.VISIBLE);
+                imagen.setVisibility(View.VISIBLE);
+                btnImagen.setVisibility(View.VISIBLE);
+                btnSkip.setVisibility(View.VISIBLE);
+                loadingBox.setVisibility(View.GONE);
+
+
+            }
+        });
+
+        sayitagain.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                SpeakOption speakOption = new SpeakOption();
+                speakOption.setSpeed(50);
+                speakOption.setIntonation(50);
+
+                speechManager.startSpeak("Say what you see in the image!", speakOption);
+
+
+            }
+        });
     }
 
     private void actualizarImagen() {
