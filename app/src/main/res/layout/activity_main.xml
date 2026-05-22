@@ -71,14 +71,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="80dp"
                 android:gravity="center"
                 android:padding="16dp">
 
                 <ImageButton
                     android:id="@+id/imagen"
-                    android:layout_width="500dp"
+                    android:layout_width="400dp"
                     android:visibility="invisible"
-                    android:layout_height="500dp"
+                    android:layout_height="400dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/banana"
                     android:background="?attr/selectableItemBackgroundBorderless"

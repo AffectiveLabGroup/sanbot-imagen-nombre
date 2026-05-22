@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -300,6 +301,26 @@ public class MainActivity extends TopBaseActivity {
 
         View view = getLayoutInflater().inflate(R.layout.feedbackasociacion, null);
 
+        TextView respuestaCorrectaDialog =
+                view.findViewById(R.id.textoRespuesta);
+
+        ImageView imgDialog =
+                view.findViewById(R.id.imgRespuesta);
+
+        String nombreImagen = palabras.get(indiceActual);
+
+        // Obtener el drawable dinámicamente
+        int resId = getResources().getIdentifier(
+                nombreImagen,
+                "drawable",
+                getPackageName()
+        );
+
+        // Poner texto e imagen
+        respuestaCorrectaDialog.setText(nombreImagen.toUpperCase());
+        imgDialog.setImageResource(resId);
+
+
         Button btnYes = view.findViewById(R.id.btnAccept);
         Button btnNo = view.findViewById(R.id.btnCancel);
 
@@ -309,11 +330,13 @@ public class MainActivity extends TopBaseActivity {
                 .create();
 
         btnYes.setOnClickListener(v -> {
+            hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
             dialog.dismiss();
             siguientePalabra();
         });
 
         btnNo.setOnClickListener(v -> {
+            hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
             dialog.dismiss();
             dejarDeJugar = true;
             finJuego();
@@ -493,6 +516,10 @@ public class MainActivity extends TopBaseActivity {
 
         hardwareManager.setLED(new LED(LED.PART_ALL, LED.MODE_CLOSE));
 
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.example.languages", "com.example.sanbotapp.MainActivity"));
+        startActivity(intent);
+        finish();
 
     }
 
@@ -511,7 +538,7 @@ public class MainActivity extends TopBaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                speechManager.startSpeak("Tap the button and say the word in English!", speakOption );
+                speechManager.startSpeak("Tap the button and say what you see in the image!!", speakOption );
 
                 try {
                     Thread.sleep(3000);
